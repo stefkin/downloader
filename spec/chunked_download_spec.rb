@@ -20,7 +20,10 @@ describe ChunkedDownload do
     before { stub_request(:any, uri).to_return(status: 403) }
 
     it "there is no corrupted file after the failure" do
-      expect { ChunkedDownload.call(uri, destination: destination) }.to raise_error(ChunkedDownload::Error)
+      expect { ChunkedDownload.call(uri, destination: destination) }
+        .to raise_error(
+          an_instance_of(StandardError)
+            .and having_attributes(message: "Error 403: https://www.example.com/foo.png"))
 
       expect(File.exist?(destination)).not_to be
     end

@@ -4,8 +4,6 @@ require 'uri'
 module ChunkedDownload
   module_function
 
-  Error = Class.new(StandardError)
-
   def call(raw_uri, destination:)
     return unless raw_uri
     uri = URI(raw_uri)
@@ -14,7 +12,7 @@ module ChunkedDownload
       request = Net::HTTP::Get.new uri
 
       http.request request do |response|
-        raise Error, error_message(response.code, uri) unless success?(response)
+        raise StandardError, error_message(response.code, uri) unless success?(response)
 
         File.open destination, 'wb' do |io|
           response.read_body { |chunk| io.write chunk }
