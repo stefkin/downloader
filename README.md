@@ -13,7 +13,7 @@ you can specify download destination `ruby ./main.rb pics.txt ~/Downloads` for e
 args and ties other modules together.
 
 
-[ChunkedDownload](./chunkded_download.rb) downloads individual files in chunks
+[ChunkedDownload](./chunked_download.rb) downloads individual files in chunks
 using net/http and writes it in chunks to the destination file.
 It avoids reading the whole file into memory reducing memory footprint.
 
